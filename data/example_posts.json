@@ -1,0 +1,20 @@
+{
+  "_instructions": "Add your best-performing approved X posts here as additional few-shot examples. Claude merges these with examples in .agents/social-media-context-sms.md — keep them separate (no duplicates). Format: {id, type (1-6), text}.",
+  "examples": [
+    {
+      "id": 1,
+      "type": 3,
+      "text": "Manual trading vs algos: guess which holds your emotions hostage? 😵‍💫\n\nGCode's Cornix-powered system frees you from stress with automated, precise execution. Risk managed, profits targeted. ⚖️\n\nHow many hours do you waste glued to charts daily?\n\nSee live results & start easy → https://t.me/Gplussignup_bot?start=7a0be77b\n\n#AlgoTrading #AutomatedTrading #Cornix #TradingBot #HandsFreeTrading"
+    },
+    {
+      "id": 2,
+      "type": 3,
+      "text": "Try this: Trade without watching charts for a week. Can you stay emotion-free? ⏰\n\nGCode makes it real — fully automated, zero-stress execution with Cornix.\n\nReady to ditch screen-staring and still win?\n\nJoin hands-free gains: https://t.me/Gplussignup_bot?start=7a0be77b\n\n#AlgoTrading #AutomatedTrading #Cornix #CryptoTrading #HandsFreeTrading"
+    },
+    {
+      "id": 3,
+      "type": 6,
+      "text": "Why does steady crypto growth beat hype?\n\nEmotions wreck trades. Our bot removes guesswork and stress.\n\nSet it, forget it, profit hands-free ⚖️\n\nJoin the calm winners: https://t.me/Gplussignup_bot?start=7a0be77b\n\n#Cornix #RiskManagement #HandsFreeTrading #CryptoBot"
+    }
+  ]
+}

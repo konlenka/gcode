@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": {
+    "content-repurposer-sms": {
+      "source": "blacktwist/social-media-skills",
+      "sourceType": "github",
+      "computedHash": "e295541465e21948857383866b7d4d9bddec634e44f850083c67ecc31ef4732f"
+    },
+    "hook-writer-sms": {
+      "source": "blacktwist/social-media-skills",
+      "sourceType": "github",
+      "computedHash": "431c228289f03cbafbfab9028ac18618a8e28b27a7d6e8d024f395cca63d021b"
+    },
+    "post-writer-sms": {
+      "source": "blacktwist/social-media-skills",
+      "sourceType": "github",
+      "computedHash": "5e07f265a2b431d9ecb7cb0c491fff12c0df39333d69db65b70133b821f83db7"
+    },
+    "social-media-context-sms": {
+      "source": "blacktwist/social-media-skills",
+      "sourceType": "github",
+      "computedHash": "050ef7179edccefafdd738a08a8f2e00c164d99e0b5164869cd582f9b0a011e0"
+    },
+    "thread-writer-sms": {
+      "source": "blacktwist/social-media-skills",
+      "sourceType": "github",
+      "computedHash": "bc6afa9a81fccfe0a481089b98df5ba85ad225bf7e23e767f0e09547164bc41a"
+    }
+  }
+}

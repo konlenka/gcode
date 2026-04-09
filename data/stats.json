@@ -1,0 +1,29 @@
+{
+  "_instructions": "Store real GCode Algo performance stats here. Used as fallback when trades.thegcodealgo.com cannot be scraped. Run /update-stats to add entries. NEVER fabricate — only log verified results.",
+  "_last_updated": "",
+  "overall": {
+    "note": "Fill these in with your real verified stats",
+    "total_signals": null,
+    "win_rate_pct": null,
+    "avg_profit_per_trade_pct": null,
+    "best_month_return_pct": null,
+    "months_live": null
+  },
+  "algos": [
+    {
+      "name": "Example Algo Name",
+      "exchange": "Binance",
+      "win_rate_pct": null,
+      "total_trades": null,
+      "avg_return_pct": null,
+      "note": "Replace with real algo data from trades.thegcodealgo.com"
+    }
+  ],
+  "recent_highlights": [
+    {
+      "date": "",
+      "description": "Example: BTC long closed +4.2% in 6 hours",
+      "verified": false
+    }
+  ]
+}
