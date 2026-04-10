@@ -1,29 +1,6 @@
 {
-  "_instructions": "Store real GCode Algo performance stats here. Used as fallback when trades.thegcodealgo.com cannot be scraped. Run /update-stats to add entries. NEVER fabricate — only log verified results.",
-  "_last_updated": "",
-  "overall": {
-    "note": "Fill these in with your real verified stats",
-    "total_signals": null,
-    "win_rate_pct": null,
-    "avg_profit_per_trade_pct": null,
-    "best_month_return_pct": null,
-    "months_live": null
-  },
-  "algos": [
-    {
-      "name": "Example Algo Name",
-      "exchange": "Binance",
-      "win_rate_pct": null,
-      "total_trades": null,
-      "avg_return_pct": null,
-      "note": "Replace with real algo data from trades.thegcodealgo.com"
-    }
-  ],
-  "recent_highlights": [
-    {
-      "date": "",
-      "description": "Example: BTC long closed +4.2% in 6 hours",
-      "verified": false
-    }
-  ]
+  "_note": "Auto-populated by scraper.py \u2014 do not edit manually",
+  "last_updated": "2026-04-10T00:58:00.683764+00:00",
+  "source": "https://trades.thegcodealgo.com",
+  "raw_stats": "G Plus Algo: Powering Your Crypto Profits\nJoin 100+ traders for daily signals and passive income with our 7-day free trial!\nJoin G Plus and Get 50% Off\nTotal Trades\nWin Rate\nTotal Profit\n-10.03%\nAllocation: 10%\nProfit %\n-1.00%\nProfit\nCurrent Month's Trades\nDate\tCoin\tDirection\tOutcome\tProfit/Loss\n2026-04-07\tWIF\t\u25b2 LONG\t\u2713 WIN\n+2.10%\n2026-04-05\tWIF\t\u25bc SHORT\t\u2717 LOSS\n-3.66%\n2026-04-05\tWIF\t\u25b2 LONG\t\u2713 WIN\n2026-04-03\tWIF\t\u25bc SHORT\t\u2717 LOSS\n-3.70%\n2026-04-02\tETH\t\u25b2 LONG\t\u2717 LOSS\n-4.66%\n2026-04-02\tFARTCOIN\t\u25bc SHORT\t\u2713 WIN\n+3.39%\n2026-04-02\tSOL\t\u25b2 LONG\t\u2717 LOSS"
 }

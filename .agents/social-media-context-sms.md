@@ -58,6 +58,17 @@ last_updated: 2026-04-09
   - "Grind never stops", "rise and grind" (motivational poster)
   - "Exciting to share", "thought leader"
 
+- **AI writing patterns to NEVER use**:
+  - Opening with "Most traders..." or "Most people..." — overused AI opener
+  - "Here's the truth:", "Here's why:", "The reality is:" — AI transition phrases
+  - Parallel three-part lists (Thing 1. Thing 2. Thing 3.) — robotic structure
+  - Overusing em dashes (—) as the main punctuation rhythm
+  - "Not X. Y." fragments repeated more than once in a post
+  - Motivational restatements at the end that summarise the whole post
+  - "Hot take:", "Unpopular opinion:", "Let's be honest:" — AI clichés
+  - Sentences that all have the same length and rhythm
+  - Starting every line with a capital letter in a structured list pattern
+
 ---
 
 ## Content Pillars

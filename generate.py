@@ -23,9 +23,9 @@ logger = logging.getLogger(__name__)
 MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 400
 TEMPERATURE = 0.9
+CHAR_LIMIT = 280  # X hard limit (system prompt says 300 for safety margin — enforce 280 here)
 
 _EXAMPLES_FILE = os.path.join(os.path.dirname(__file__), "data", "example_posts.json")
-_STATS_FILE = os.path.join(os.path.dirname(__file__), "data", "stats.json")
 
 MAX_EXAMPLES = 3  # Number of few-shot examples to inject per call
 
@@ -47,14 +47,13 @@ def generate_post(
     Returns:
         str: The post text ready to publish.
     """
-    # For Social Proof, fall back to local stats.json if no scraped data
+    # For Social Proof, scraper.py handles its own cache fallback (stats.json).
+    # If context_data is still empty here, both live scrape and cache failed.
     if content_type == 4 and not context_data:
-        context_data = _load_local_stats()
-        if not context_data:
-            logger.warning(
-                "Type 4 (Social Proof): both scraper and stats.json returned no data. "
-                "Post will use narrative angle — update data/stats.json with real figures."
-            )
+        logger.warning(
+            "Type 4 (Social Proof): scraper returned no data and cache is empty. "
+            "Post will use narrative angle. Check trades.thegcodealgo.com is reachable."
+        )
 
     client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
     user_prompt = build_user_prompt(content_type, last_3_types, context_data)
@@ -74,6 +73,24 @@ def generate_post(
 
     post_text = message.content[0].text.strip()
     logger.info("Generated post (%d chars): %s", len(post_text), post_text[:80])
+
+    # If over limit, ask Claude to shorten it (one retry)
+    if len(post_text) > CHAR_LIMIT:
+        logger.warning("Post is %d chars (limit %d) — asking Claude to shorten.", len(post_text), CHAR_LIMIT)
+        shorten_messages = messages + [
+            {"role": "assistant", "content": post_text},
+            {"role": "user", "content": f"That post is {len(post_text)} characters. Shorten it to strictly under {CHAR_LIMIT} characters while keeping the hook, CTA link, and hashtags. Output only the shortened post."},
+        ]
+        retry = client.messages.create(
+            model=MODEL,
+            max_tokens=MAX_TOKENS,
+            temperature=0.5,
+            system=SYSTEM_PROMPT,
+            messages=shorten_messages,
+        )
+        post_text = retry.content[0].text.strip()
+        logger.info("Shortened post (%d chars): %s", len(post_text), post_text[:80])
+
     return post_text
 
 
@@ -127,40 +144,3 @@ def _load_examples() -> list[dict]:
         return []
 
 
-def _load_local_stats() -> str:
-    """
-    Load manually maintained stats from data/stats.json as fallback
-    for Social Proof posts when the live scraper returns nothing.
-    """
-    try:
-        with open(_STATS_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        lines: list[str] = []
-        overall = data.get("overall", {})
-        if overall.get("win_rate_pct"):
-            lines.append(f"Overall win rate: {overall['win_rate_pct']}%")
-        if overall.get("total_signals"):
-            lines.append(f"Total signals: {overall['total_signals']}")
-        if overall.get("avg_profit_per_trade_pct"):
-            lines.append(f"Avg profit per trade: {overall['avg_profit_per_trade_pct']}%")
-        if overall.get("best_month_return_pct"):
-            lines.append(f"Best month return: {overall['best_month_return_pct']}%")
-        if overall.get("months_live"):
-            lines.append(f"Live for: {overall['months_live']} months")
-
-        for algo in data.get("algos", []):
-            if algo.get("win_rate_pct") and algo.get("name"):
-                lines.append(
-                    f"{algo['name']}: {algo['win_rate_pct']}% win rate"
-                    + (f", {algo['total_trades']} trades" if algo.get("total_trades") else "")
-                )
-
-        for h in data.get("recent_highlights", []):
-            if h.get("verified") and h.get("description"):
-                lines.append(f"Recent: {h['description']}")
-
-        return "\n".join(lines) if lines else ""
-    except Exception as e:
-        logger.debug("Could not load local stats: %s", e)
-        return ""
