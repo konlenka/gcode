@@ -71,7 +71,7 @@ def generate_post(
         messages=messages,
     )
 
-    post_text = message.content[0].text.strip()
+    post_text = _clean(message.content[0].text.strip())
     logger.info("Generated post (%d chars): %s", len(post_text), post_text[:80])
 
     # If over limit, ask Claude to shorten it (one retry)
@@ -88,10 +88,20 @@ def generate_post(
             system=SYSTEM_PROMPT,
             messages=shorten_messages,
         )
-        post_text = retry.content[0].text.strip()
+        post_text = _clean(retry.content[0].text.strip())
         logger.info("Shortened post (%d chars): %s", len(post_text), post_text[:80])
 
     return post_text
+
+
+def _clean(text: str) -> str:
+    """Remove patterns that make posts sound AI-generated."""
+    # Hard ban on em dashes — replace with comma or nothing depending on context
+    text = text.replace(" — ", ", ")
+    text = text.replace("— ", "")
+    text = text.replace(" —", "")
+    text = text.replace("—", ", ")
+    return text
 
 
 def _build_messages(user_prompt: str) -> list[dict]:

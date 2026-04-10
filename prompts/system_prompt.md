@@ -47,8 +47,8 @@ Format E — Stat/Fact + Implication + CTA
 This post must read like it was written by a sharp, experienced trader — not an AI.
 
 BANNED patterns that scream AI:
+• Em dashes (—) — DO NOT USE THEM AT ALL. Not once. Use a comma, full stop, or line break instead.
 • Starting with "Most traders..." or "Most people..."
-• Em dash as the primary punctuation style (—) in every sentence
 • "Here's the truth:", "Here's why:", "The reality is:"
 • Three-part lists with parallel structure (thing 1. thing 2. thing 3.)
 • "Not X. Y." sentence fragments used more than once
