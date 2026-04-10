@@ -79,11 +79,15 @@ def fetch_performance_data() -> str:
 
 
 def _parse(text: str) -> str:
-    """Extract stat-relevant lines from the rendered page text."""
-    stat_keywords = [
-        "win", "rate", "profit", "trade", "return", "signal",
-        "accuracy", "drawdown", "algo", "%", "pnl", "loss",
-        "gain", "total", "monthly", "weekly", "performance",
+    """
+    Extract only positive, brand-flattering stats from the rendered page text.
+    Filters out losses, negative returns, and anything that would reflect badly.
+    """
+    import re
+
+    positive_keywords = [
+        "win", "rate", "profit", "signal", "accuracy",
+        "gain", "total", "trader", "algo", "passive", "free trial",
     ]
 
     lines = text.splitlines()
@@ -94,12 +98,27 @@ def _parse(text: str) -> str:
         line = line.strip()
         if len(line) < 4 or len(line) > 300:
             continue
+
+        # Skip lines with negative percentages (e.g. -3.66%, -10.03%)
+        if re.search(r"-\d+\.?\d*%", line):
+            continue
+
+        # Skip lines explicitly showing a loss outcome
         line_lower = line.lower()
-        if any(kw in line_lower for kw in stat_keywords):
-            if line not in seen:
-                seen.add(line)
-                results.append(line)
-        if len(results) >= 25:
+        if any(bad in line_lower for bad in ["✗", "loss", "lose", "losing", "drawdown"]):
+            continue
+
+        # Keep lines with positive percentage figures
+        has_positive_pct = bool(re.search(r"\+\d+\.?\d*%", line))
+
+        # Keep lines with positive stat keywords
+        has_stat_keyword = any(kw in line_lower for kw in positive_keywords)
+
+        if (has_positive_pct or has_stat_keyword) and line not in seen:
+            seen.add(line)
+            results.append(line)
+
+        if len(results) >= 20:
             break
 
     return "\n".join(results)
